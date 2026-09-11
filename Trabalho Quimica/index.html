@@ -7,10 +7,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script src="script.js"></script>
+    
+
+<div class="controles-cores">
+    <button class="botao-tema ativo" data-tema="padrao">Cores Normais</button>
+    <button class="botao-tema" data-tema="tema1">Protanopia</button>
+    <button class="botao-tema" data-tema="tema2">Deuteranopia</button>
+    <button class="botao-tema" data-tema="tema3">Tritanopia</button>
+    <button class="botao-tema" data-tema="tema4">Acromatopsia</button>
+</div>
 
 <main class="container">
-    <h1>Elementos da Tabela Periódia - Deficientes Visuais</h1>
+  <div class="container" id="painel-principal" data-tema="padrao">
+    <h1>Elementos da Tabela Periódica - Deficientes Visuais</h1>
     <div class="tabela-periodica">
         <!--1 e 2-->
         <div class="elemento h nao-metal">
@@ -629,7 +638,27 @@
         <span class="nome">Oganessônio</span>
       </div>
     </div>
+  </div>
 </main>
+    <script src="script.js"></script>
+
+    <div class="painel-legenda">
+        <h3 id="titulo-modo-legenda">Visão: Cores Normais</h3>
+        <ul class="lista-legenda-dinamica">
+            <li><span class="cor-box" id="box-alcalino"></span> <strong>Metais Alcalinos:</strong> <span id="txt-alcalino">Laranja</span></li>
+            <li><span class="cor-box" id="box-alcalino-terreo"></span> <strong>Metais Alcalino-Térreos:</strong> <span id="txt-alcalino-terreo">Amarelo</span></li>
+            <li><span class="cor-box" id="box-transicao"></span> <strong>Metais de Transição:</strong> <span id="txt-transicao">Azul</span></li>
+            <li><span class="cor-box" id="box-lantanideo"></span> <strong>Lantanídeos:</strong> <span id="txt-lantanideo">Rosa Claro</span></li>
+            <li><span class="cor-box" id="box-actinideo"></span> <strong>Actinídeos:</strong> <span id="txt-actinideo">Magenta/Rosa Escuro</span></li>
+            <li><span class="cor-box" id="box-pos-transicao"></span> <strong>Metais Pós-Transição:</strong> <span id="txt-pos-transicao">Azul Claro</span></li>
+            <li><span class="cor-box" id="box-semimetal"></span> <strong>Semimetais:</strong> <span id="txt-semimetal">Verde Água</span></li>
+            <li><span class="cor-box" id="box-nao-metal"></span> <strong>Não-metais:</strong> <span id="txt-nao-metal">Verde Claro</span></li>
+            <li><span class="cor-box" id="box-halogenio"></span> <strong>Halogênios:</strong> <span id="txt-halogenio">Laranja Escuro</span></li>
+            <li><span class="cor-box" id="box-gas-nobre"></span> <strong>Gases Nobres:</strong> <span id="txt-gas-nobre">Roxo Claro</span></li>
+        </ul>
+    </div>
+
+</div>
     
 </body>
 </html>
