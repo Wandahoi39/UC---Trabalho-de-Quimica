@@ -4,14 +4,6 @@
     padding: 0;
 }
 
-#botaoAudio {
-    width: 100vw;
-    height: 100vh;
-    font-size: 50px;
-    border: none;
-    cursor: pointer;
-}
-
 .container {
     width: 100%;
     max-width: 1300px;
