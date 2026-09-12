@@ -78,16 +78,52 @@ const dadosModos = {
     tema4: {
         nome: "Visão: Acromatopsia (Monocromático / Padrões)",
         cores: {
-            alcalino: { bg: "#FFFFFF", txt: "Branco" },
-            "alcalino-terreo": { bg: "#E5E7EB", txt: "Cinza Muito Claro" },
-            transicao: { bg: "#9CA3AF", txt: "Cinza Médio" },
-            lantanideo: { bg: "#374151", txt: "Cinza Grafite" },
-            actinideo: { bg: "#111827", txt: "Preto Quase Puro" },
-            "pos-transicao": { bg: "repeating-linear-gradient(45deg, #e5e7eb, #e5e7eb 5px, #ffffff 5px, #ffffff 10px)", txt: "Listras Diagonais" },
-            semimetal: { bg: "radial-gradient(#6b7280 15%, transparent 16%)", txt: "Pontilhado" },
-            "nao-metal": { bg: "repeating-linear-gradient(0deg, #d1d5db, #d1d5db 4px, #ffffff 4px, #ffffff 8px)", txt: "Listras Horizontais" },
-            halogenio: { bg: "#1F2937", txt: "Cinza Escuro" },
-            "gas-nobre": { bg: "linear-gradient(90deg, #9ca3af 1px, transparent 1px), linear-gradient(#9ca3af 1px, transparent 1px)", txt: "Quadriculado" }
+            alcalino: { 
+                bg: "repeating-linear-gradient(45deg, #FFFFFF 0px, #FFFFFF 5px, #555555 5px, #555555 7px)", 
+                txt: "Listras Diagonais Direita" 
+            },
+            "alcalino-terreo": { 
+                bg: "repeating-linear-gradient(-45deg, #E5E7EB 0px, #E5E7EB 5px, #555555 5px, #555555 7px)", 
+                txt: "Listras Diagonais Esquerda" 
+            },
+            transicao: { 
+                bg: "radial-gradient(#333333 1px, transparent 1px)", 
+                txt: "Pontilhado Fino",
+                bgColor: "#9CA3AF",
+                size: "6px 6px"
+            },
+            lantanideo: { 
+                bg: "repeating-linear-gradient(90deg, #374151 0px, #374151 4px, #888888 4px, #888888 6px)", 
+                txt: "Listras Verticais" 
+            },
+            actinideo: { 
+                bg: "repeating-linear-gradient(0deg, #111827 0px, #111827 4px, #777777 4px, #777777 6px)", 
+                txt: "Listras Horizontais Escuras" 
+            },
+            "pos-transicao": { 
+                bg: "repeating-linear-gradient(45deg, #E5E7EB 0px, #E5E7EB 5px, #FFFFFF 5px, #FFFFFF 10px)", 
+                txt: "Listras Diagonais Claras" 
+            },
+            semimetal: { 
+                bg: "radial-gradient(#333333 15%, transparent 16%)", 
+                txt: "Pontilhado Médio",
+                bgColor: "#BFC3C8",
+                size: "7px 7px"
+            },
+            "nao-metal": { 
+                bg: "repeating-linear-gradient(0deg, #D1D5DB 0px, #D1D5DB 4px, #FFFFFF 4px, #FFFFFF 8px)", 
+                txt: "Listras Horizontais Claras" 
+            },
+            halogenio: { 
+                bg: "repeating-linear-gradient(45deg, #1F2937 0px, #1F2937 5px, #777777 5px, #777777 7px)", 
+                txt: "Listras Diagonais Escuras" 
+            },
+            "gas-nobre": { 
+                bg: "linear-gradient(#555555 1px, transparent 1px), linear-gradient(90deg, #555555 1px, transparent 1px)", 
+                txt: "Quadriculado",
+                bgColor: "#D1D5DB",
+                size: "8px 8px"
+            }
         }
     }
 };
@@ -97,28 +133,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('painel-principal');
 
     function atualizarLegenda(chaveTema) {
-        const dados = dadosModos[chaveTema];
-        if (!dados) return;
+    const dados = dadosModos[chaveTema];
+    if (!dados) return;
 
-        document.getElementById('titulo-modo-legenda').innerText = dados.nome;
+    document.getElementById('titulo-modo-legenda').innerText = dados.nome;
 
-        Object.keys(dados.cores).forEach(familia => {
-            const box = document.getElementById(`box-${familia}`);
-            const txt = document.getElementById(`txt-${familia}`);
+    Object.keys(dados.cores).forEach(familia => {
+        const box = document.getElementById(`box-${familia}`);
+        const txt = document.getElementById(`txt-${familia}`);
 
-            if (box && txt) {
-                const info = dados.cores[familia];
-                if (info.bg.includes('gradient')) {
-                    box.style.background = info.bg;
-                    box.style.backgroundSize = familia === 'semimetal' ? '6px 6px' : (familia === 'gas-nobre' ? '8px 8px' : 'auto');
-                } else {
-                    box.style.background = '';
-                    box.style.backgroundColor = info.bg;
+        if (box && txt) {
+            const info = dados.cores[familia];
+            
+            // Limpa estilos prévios
+            box.style.background = '';
+            box.style.backgroundColor = '';
+            box.style.backgroundImage = '';
+            box.style.backgroundSize = '';
+
+            if (info.bg.includes('gradient')) {
+                // Aplica a cor de fundo base, caso exista (ex: semimetais e gases nobres)
+                if (info.bgColor) {
+                    box.style.backgroundColor = info.bgColor;
                 }
-                txt.innerText = info.txt;
+                box.style.backgroundImage = info.bg;
+                
+                // Aplica o tamanho exato do padrão se houver
+                if (info.size) {
+                    box.style.backgroundSize = info.size;
+                }
+            } else {
+                box.style.backgroundColor = info.bg;
             }
-        });
-    }
+            
+            txt.innerText = info.txt;
+        }
+    });
+}
 
     botoes.forEach(botao => {
         botao.addEventListener('click', () => {
